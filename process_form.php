@@ -5,7 +5,7 @@ $BreedName = $_REQUEST['Breed_Name'];
 
 $AltBreedName = $_REQUEST['AltBreedName'] ?: "n/a";  // fallback if blank
 
-$Fur_ID = $_REQUEST['Furtype'];
+$Fur_ID = $_REQUEST['Fur_Type'];
 
 $Lapcat_ID = $_REQUEST['Lapcat'];
 

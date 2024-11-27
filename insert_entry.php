@@ -8,8 +8,8 @@ if (isset($_SESSION['admin'])) {
         include("process_form.php");
 
         // insert entry
-        $stmt = $dbconnect->prepare("INSERT INTO `Cat_characteristics` (`BreedName`, `AltBreedName`, `Fur_ID`, `LapCat_ID`, `Temp1_ID`, `Temp2_ID`, `Temp3_ID`, `Temp4_ID`, `Temp5_ID`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);");
-        $stmt->bind_param("ssiiiiiii", $BreedName, $AltBreedName, $Fur_ID, $Lapcat_ID, $TempID_1, $TempID_2, $TempID_3, $TempID_4, $TempID_5);
+        $stmt = $dbconnect->prepare("INSERT INTO `Cat_characteristics` (`BreedName`, `AltBreedName`, `LapCat_ID`, `Fur_ID`, `Temp1_ID`, `Temp2_ID`, `Temp3_ID`, `Temp4_ID`, `Temp5_ID`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);");
+        $stmt->bind_param("ssiiiiiii", $BreedName, $AltBreedName, $Lapcat_ID, $Fur_ID, $TempID_1, $TempID_2, $TempID_3, $TempID_4, $TempID_5);
         $stmt->execute();
 
         $ID= $dbconnect->insert_id;
@@ -17,7 +17,7 @@ if (isset($_SESSION['admin'])) {
         // Close stmt once everything has been inserted
         $stmt->close();
 
-        // Redirect to entry_success.php
+        // Redirect to entry_review.php
         header("Location: index.php?page=../admin/entry_review");
         exit();  // Ensure script stops running after the redirect
 

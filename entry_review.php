@@ -28,7 +28,7 @@ if (isset($_SESSION['admin'])) {
 
     </p>
     <p>
-    <h4> If you are unhappy you can delete the entry or create a new one (edit dosnt work)  "</h4>
+    <h4> If you are unhappy you can delete the entry or create a new one "</h4>
 
     </p>
 
@@ -42,8 +42,8 @@ if (isset($_SESSION['admin'])) {
         $row = $result->fetch_assoc();
         echo "<p><strong>Breed Name:</strong> " . $row['BreedName'] . "</p>";
         echo "<p><strong>Alternative Breed Name:</strong> " . $row['AltBreedName'] . "</p>";
-        echo "<p><strong>Fur Type ID:</strong> " . $row['Fur_ID'] . "</p>";
-        echo "<p><strong>LapCat Type ID:</strong> " . $row['LapCat_ID'] . "</p>";
+        echo "<p><strong>Fur Type :</strong> " . $row['Fur_ID'] . "</p>";
+        echo "<p><strong>LapCat Type :</strong> " . $row['LapCat_ID'] . "</p>";
         echo "<p><strong>Tempraments:</strong></p>";
         echo "<ul>";
         echo "<li>" . $row['Temp1'] . "</li>";

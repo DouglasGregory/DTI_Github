@@ -11,7 +11,7 @@ if ($find_count == 1) {
     $result_s = "Results";
 }
 
-// check that we have results
+// Check that we have results
 if ($find_count > 0) {
 
     if ($heading != "") {
@@ -24,25 +24,27 @@ if ($find_count > 0) {
     // Display heading
     echo $heading;
 
+    // Iterate through the query results
     while ($find_rs = mysqli_fetch_assoc($find_query)) {
+        // Fetch breed details
+		$ID = $find_rs['ID'];
         $BreedName = $find_rs['BreedName'];
         $AltBreedName = $find_rs['AltBreedName'];
-		$ID = $find_rs['ID'];
-		
-        // Set up subjects
-        $Fur = isset($find_rs['Fur_Type']) ? $find_rs['Fur_Type'] : '';
-        $LapCat = isset($find_rs['LapCat']) ? $find_rs['LapCat'] : '';
+        
+        // Fetch and check Fur_Type and LapCat values
+        $Fur_Type = $find_rs['Fur'];
+        $LapCat = $find_rs['Lapcat'];
 
-        // Set up tempraments
+
+        // Fetch temperament values
         $Temp1 = $find_rs['Temprament1'];
         $Temp2 = $find_rs['Temprament2'];
         $Temp3 = $find_rs['Temprament3'];
         $Temp4 = $find_rs['Temprament4'];
         $Temp5 = $find_rs['Temprament5'];
-		
-        // Put tempraments in an array for iteration
-        $Tempraments = array($Temp1, $Temp2, $Temp3, $Temp4, $Temp5);
 
+        // Store temperaments in an array
+        $Tempraments = array($Temp1, $Temp2, $Temp3, $Temp4, $Temp5);
         ?>
 
         <div class="results">
@@ -54,35 +56,33 @@ if ($find_count > 0) {
             </i></p>
 
             <p>
-            <?php
-            // Iterate through tempraments array and output non-"n/a" values
-            foreach ($Tempraments as $Temprament) {
-                // ensure Temprament is not "n/a"
-                if ($Temprament != "n/a") {
-            ?>
-                    <span class="tag">
-                        <a href="index.php?page=all_results&search=Temprament&Temprament_name=<?php echo $Temprament; ?>">
-                            <?php echo $Temprament; ?>
-                        </a>
-                    </span>
-                    &nbsp;&nbsp;
-            <?php
-                }
-            }
+                <strong>Alternative Breed Name:</strong> <?php echo htmlspecialchars($AltBreedName); ?><br>
+                
+				<strong>Lap Cat:</strong> <?php echo htmlspecialchars($LapCat); ?><br> 
+                
+				<strong>Fur Type:</strong> <?php echo htmlspecialchars($Fur_Type); ?><br>
 
-            // if the user is logged in, show edit / delete options
+                <strong>Temperaments:</strong> 
+                <?php
+                // Iterate through the temperaments array and output non-"n/a" values
+                foreach ($Tempraments as $Temprament) {
+                    if ($Temprament != "n/a") {
+                        echo "<span class='tag'>" . htmlspecialchars($Temprament) . "</span>&nbsp;&nbsp;";
+                    }
+                }
+                ?>
+            </p>
+
+            <?php
+            // If the user is logged in, show edit / delete options
             if (isset($_SESSION['admin'])) {
             ?>
             <div class="tools">
-                <a href="index.php?page=../admin/editcat&ID=<?php echo $ID; ?>"><i class="fa fa-edit fa-2x"></i></a> 
-				&nbsp; &nbsp;
                 <a href="index.php?page=../admin/deleteconfirm&ID=<?php echo $ID; ?>"><i class="fa fa-trash fa-2x"></i></a>
             </div>
             <?php
             }
             ?>
-            </p>
-
         </div>
 
         <br />
@@ -90,6 +90,7 @@ if ($find_count > 0) {
     <?php
     } // End of while loop
 } else { 
+    // If no results are found
     ?>
     <h2>Sorry!</h2>
     <div class="no-results">
@@ -98,4 +99,4 @@ if ($find_count > 0) {
 <?php 
 }
 
-?>
+?>  
